@@ -402,7 +402,6 @@ display:
     model: CUSTOM
     data_rate: 80MHz
     id: main_display
-    rotation: 180°    # FLIP DISPLAY change to 180° to flip display
     spi_id: display_qspi
     color_order: rgb
     invert_colors: true
@@ -412,7 +411,7 @@ display:
     cs_pin: GPIO21
     reset_pin:
       pca9554: pca9554_device
-      number: 2  # EXIO2 - critical for 1.85C variant!
+      number: 1  # EXIO2 (chip IO 1) - critical for 1.85C variant!
     auto_clear_enabled: false
     update_interval: never
     # Official Waveshare init sequence for 1.85C
@@ -622,6 +621,9 @@ touchscreen:
   id: my_touchscreen
   address: 0x15
   interrupt_pin: GPIO4
+  reset_pin:
+    pca9554: pca9554_device
+    number: 0  # EXIO1 (chip IO 0)
   transform:
     mirror_x: true #FLIP DISPLAY change to true to flip display
     mirror_y: true #FLIP DISPLAY change to true to flip display
@@ -670,6 +672,7 @@ font:
 lvgl:
   displays:
     - main_display
+  rotation: 180    # FLIP DISPLAY change to 180° to flip display
   touchscreens:
     - touchscreen_id: my_touchscreen
   buffer_size: 25%
